@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ViewCell xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+          xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+          mc:Ignorable="d"
+             x:Class="ArcMoviesUnity.Views.Templates.MovieListItem">
+
+    <Frame
+                        x:Name="MovieItem"
+                        Margin="2"
+                        Padding="0"
+                        HasShadow="True">
+
+
+        <Grid Margin="8,4" VerticalOptions="StartAndExpand">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="8*" />
+            </Grid.ColumnDefinitions>
+
+            <ffimageloading:CachedImage
+                                Grid.ColumnSpan="2"
+                                Aspect="Fill"
+                                FadeAnimationDuration="1000"
+                                FadeAnimationEnabled="True"
+                                HorizontalOptions="Fill"
+                                IsOpaque="True"
+                                Opacity="0.1"
+                                Source="{Binding BackdropPath, Converter={StaticResource MovieImageConverter}}"
+                                VerticalOptions="Fill" />
+
+            <!--  "NÃO CONSEGUI FAZER FUNCIONAR AINDA"  -->
+            <ffimageloading:CachedImage Source="{Binding PosterPath, Converter={StaticResource MovieImageConverter}}" />
+
+            <StackLayout Grid.Column="1" Margin="0,10">
+
+                <Label
+                                    FontAttributes="Bold"
+                                    FontSize="18"
+                                    LineBreakMode="TailTruncation"
+                                    Text="{Binding Title}"
+                                    TextColor="Black" />
+                <Label
+                                    FontSize="12"
+                                    Text="{Binding ReleaseDate, StringFormat='Release date: {0:MMMM d}'}"
+                                    TextColor="Black"
+                                    VerticalOptions="Center" />
+                <Label
+                                    FontSize="12"
+                                    Text="{Binding Popularity, StringFormat='Popularity: {0:F0}'}"
+                                    TextColor="Black"
+                                    VerticalOptions="Center" />
+            </StackLayout>
+
+            <!--<Image
+                                Aspect="AspectFill"
+                                HorizontalOptions="Fill"
+                                IsOpaque="True"
+                                Opacity="0.1"
+                                VerticalOptions="Fill">
+                                <Image.Source>
+                                    <UriImageSource Uri="{Binding BackdropPath, Converter={StaticResource MovieImageConverter}}" />
+                                </Image.Source>
+                            </Image>-->
+
+
+
+        </Grid>
+    </Frame>
+
+
+</ViewCell>

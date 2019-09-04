@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="ArcMoviesUnity.Views.MainPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:behavior="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
+    xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:template="clr-namespace:ArcMoviesUnity.Views.Templates"
+    Title="{Binding Title}">
+
+    <ListView
+        x:Name="MovieList"
+        CachingStrategy="RecycleElement"
+        HasUnevenRows="True"
+        IsPullToRefreshEnabled="True"
+        IsRefreshing="{Binding IsBusy}"
+        ItemsSource="{Binding Movies}"
+        RefreshCommand="{Binding PullToRefreshCommand}"
+        SeparatorVisibility="None">
+
+        <ListView.ItemTemplate>
+            <DataTemplate>
+                <template:MovieListItem />
+            </DataTemplate>
+
+        </ListView.ItemTemplate>
+        <ListView.Behaviors>
+            <behavior:EventToCommandBehavior
+                Command="{Binding ShowMovieCommand}"
+                EventArgsConverter="{StaticResource ItemTappedEventArgsConverter}"
+                EventName="ItemTapped" />
+            <behavior:EventToCommandBehavior
+                Command="{Binding LoadMoreCommand}"
+                EventArgsConverter="{StaticResource ItemVisibilityEventArgsConverter}"
+                EventName="ItemAppearing" />
+        </ListView.Behaviors>
+
+    </ListView>
+
+
+
+</ContentPage>

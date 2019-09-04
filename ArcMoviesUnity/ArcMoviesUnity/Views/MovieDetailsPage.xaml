@@ -1,0 +1,242 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="ArcMoviesUnity.Views.MovieDetailsPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:behavior="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
+    xmlns:controls="clr-namespace:ArcMoviesUnity.Controls;assembly=ArcMoviesUnity"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:templates="clr-namespace:ArcMoviesUnity.Views.Templates;assembly=ArcMoviesUnity"
+    Title="{Binding Title}"
+    mc:Ignorable="d">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <!--  MOVIE DETAILS COLORS  -->
+            <Color x:Key="VoteAverageColor">#FFC107</Color>
+
+
+            <Style x:Key="MovieTitleStyle" TargetType="Label">
+                <Setter Property="TextColor" Value="{StaticResource WhiteColor}" />
+                <Setter Property="FontSize" Value="20" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="Margin" Value="12, 0" />
+            </Style>
+
+            <Style x:Key="ReleaseDateStyle" TargetType="Label">
+                <Setter Property="TextColor" Value="{StaticResource BlackColor}" />
+                <Setter Property="VerticalOptions" Value="End" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="Margin" Value="12, 0" />
+            </Style>
+
+            <Color x:Key="VoteCountColor">#FFC107</Color>
+
+            <Style x:Key="VoteCountStyle" TargetType="Label">
+                <Setter Property="TextColor" Value="{StaticResource VoteCountColor}" />
+                <Setter Property="FontSize" Value="10" />
+            </Style>
+
+            <Style x:Key="VoteAverageStyle" TargetType="Label">
+                <Setter Property="TextColor" Value="{StaticResource WhiteColor}" />
+                <Setter Property="FontSize" Value="36" />
+                <Setter Property="Margin" Value="12, 0, 24, 0" />
+            </Style>
+
+            <Color x:Key="TitleColor">#000</Color>
+
+            <Style x:Key="TitleStyle" TargetType="Label">
+                <Setter Property="TextColor" Value="{StaticResource TitleColor}" />
+                <Setter Property="FontSize" Value="14" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="Margin" Value="12, 0" />
+            </Style>
+
+            <Style x:Key="TextStyle" TargetType="Label">
+                <Setter Property="TextColor" Value="{StaticResource BlackColor}" />
+                <Setter Property="FontSize" Value="12" />
+                <Setter Property="Margin" Value="12, 0" />
+                <Setter Property="LineBreakMode" Value="WordWrap" />
+            </Style>
+
+
+
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+
+    <ContentPage.Content>
+        <ScrollView Padding="20,20,20,0">
+
+            <Grid RowSpacing="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="200" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="200" />
+                </Grid.RowDefinitions>
+                <!--  MOVIE BACKDROP  -->
+
+                <ffimageloading:CachedImage
+                    x:Name="Backdrop"
+                    Aspect="AspectFill"
+                    IsOpaque="true"
+                    Opacity="0"
+                    Source="{Binding Movie.BackdropPath, Converter={StaticResource MovieImageConverter}, ConverterParameter=Backdrop}" />
+
+
+
+                <!--  OVERVIEW  -->
+                <Grid
+                    x:Name="OverView"
+                    Grid.Row="1"
+                    BackgroundColor="Gainsboro"
+                    IsVisible="False">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="4*" />
+                        <ColumnDefinition Width="6*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <ffimageloading:CachedImage
+                        x:Name="Poster"
+                        Grid.Row="0"
+                        Margin="10,-100,0,0"
+                        Aspect="AspectFit"
+                        FadeAnimationDuration="1000"
+                        FadeAnimationEnabled="True"
+                        HeightRequest="200"
+                        HorizontalOptions="Fill"
+                        Source="{Binding Movie.PosterPath, Converter={StaticResource MovieImageConverter}}"
+                        VerticalOptions="StartAndExpand"
+                        WidthRequest="80" />
+                    <!--<Image
+                        Grid.Row="0"
+                        Margin="10,-100,0,0"
+                        Aspect="AspectFit"
+                        HeightRequest="200"
+                        HorizontalOptions="Fill"
+                        VerticalOptions="StartAndExpand"
+                        WidthRequest="80">
+                        <Image.Source>
+                            <UriImageSource
+                                CacheValidity="14"
+                                CachingEnabled="true"
+                                Uri="{Binding Movie.PosterPath, Converter={StaticResource MovieImageConverter}}" />
+                        </Image.Source>
+                    </Image>-->
+                    <Grid Grid.Column="1" Padding="5">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Label
+                            Grid.Row="0"
+                            Style="{StaticResource TitleStyle}"
+                            Text="OVERVIEW" />
+                        <Label
+                            Grid.Row="1"
+                            LineBreakMode="WordWrap"
+                            Style="{StaticResource TextStyle}"
+                            Text="{Binding Movie.Overview}" />
+                    </Grid>
+                </Grid>
+                <!--  RELEASE DATE  -->
+
+                <Grid
+                    x:Name="ReleaseDate"
+                    Grid.Row="2"
+                    Padding="10"
+                    IsVisible="False">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Label
+                        Grid.Row="0"
+                        Style="{StaticResource TitleStyle}"
+                        Text="RELEASE DATE" />
+                    <Label
+                        Grid.Row="1"
+                        Style="{StaticResource TextStyle}"
+                        Text="{Binding Movie.ReleaseDate, StringFormat='Release date: {0:MMMM d, yyyy}'}" />
+                </Grid>
+                <!--  VOTE AVERAGE  -->
+                <Grid
+                    x:Name="VoteAverage"
+                    Grid.Row="3"
+                    Padding="10"
+                    IsVisible="False">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Label
+                        Grid.Row="0"
+                        Style="{StaticResource TitleStyle}"
+                        Text="VOTE AVERAGE" />
+                    <!--<Label
+              Grid.Row="1"
+              Text="{Binding Movie.VoteAverage}"
+              Style="{StaticResource TextStyle}"/>-->
+                    <controls:RatingStars
+                        Grid.Row="1"
+                        HeightRequest="30"
+                        Precision="Half"
+                        Rating="{Binding Movie.VoteAverage}"
+                        WidthRequest="100" />
+                </Grid>
+                <!--  GENRES  -->
+                <Grid
+                    x:Name="Genres"
+                    Grid.Row="4"
+                    Padding="10"
+                    IsVisible="False">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Label
+                        Grid.Row="0"
+                        Style="{StaticResource TitleStyle}"
+                        Text="GENRES" />
+                    <controls:HorizontalList
+                        Grid.Row="1"
+                        Margin="12,0"
+                        HeightRequest="50"
+                        ItemsSource="{Binding Movie.Genres}"
+                        ListOrientation="Horizontal">
+                        <controls:HorizontalList.ItemTemplate>
+                            <DataTemplate>
+                                <templates:GenreItemTemplate />
+                            </DataTemplate>
+                        </controls:HorizontalList.ItemTemplate>
+                    </controls:HorizontalList>
+                </Grid>
+                <!--  BACKDROP  -->
+                <StackLayout
+                    x:Name="BackDropInfo"
+                    Grid.Row="5"
+                    Padding="10,0"
+                    IsVisible="False">
+
+                    <Label Style="{StaticResource TitleStyle}" Text="BACKDROP" />
+                    <ffimageloading:CachedImage
+                        Margin="12,0"
+                        Aspect="AspectFit"
+                        HorizontalOptions="FillAndExpand"
+                        Source="{Binding Movie.BackdropPath, Converter={StaticResource MovieImageConverter}, ConverterParameter=Backdrop}"
+                        VerticalOptions="FillAndExpand" />
+
+                </StackLayout>
+            </Grid>
+        </ScrollView>
+
+    </ContentPage.Content>
+
+</ContentPage>
