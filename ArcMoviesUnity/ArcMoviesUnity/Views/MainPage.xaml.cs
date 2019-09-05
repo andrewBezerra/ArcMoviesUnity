@@ -11,7 +11,8 @@ namespace ArcMoviesUnity.Views
             InitializeComponent();
             
         }
-
        
+
+
     }
 }
