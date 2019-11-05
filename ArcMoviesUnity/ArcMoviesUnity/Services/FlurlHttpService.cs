@@ -1,9 +1,4 @@
-﻿using Flurl;
-using Flurl.Http;
-using Flurl.Http.Content;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Flurl.Http;
 using System.Threading.Tasks;
 
 namespace ArcMoviesUnity.Services
