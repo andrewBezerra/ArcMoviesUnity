@@ -104,7 +104,6 @@
                     </Grid.RowDefinitions>
                     <ffimageloading:CachedImage
                         x:Name="Poster"
-                        Grid.Row="0"
                         Margin="10,-100,0,0"
                         Aspect="AspectFit"
                         FadeAnimationDuration="1000"
@@ -134,10 +133,7 @@
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
-                        <Label
-                            Grid.Row="0"
-                            Style="{StaticResource TitleStyle}"
-                            Text="OVERVIEW" />
+                        <Label Style="{StaticResource TitleStyle}" Text="OVERVIEW" />
                         <Label
                             Grid.Row="1"
                             LineBreakMode="WordWrap"
@@ -156,10 +152,7 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
-                    <Label
-                        Grid.Row="0"
-                        Style="{StaticResource TitleStyle}"
-                        Text="RELEASE DATE" />
+                    <Label Style="{StaticResource TitleStyle}" Text="RELEASE DATE" />
                     <Label
                         Grid.Row="1"
                         Style="{StaticResource TextStyle}"
@@ -175,10 +168,7 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
-                    <Label
-                        Grid.Row="0"
-                        Style="{StaticResource TitleStyle}"
-                        Text="VOTE AVERAGE" />
+                    <Label Style="{StaticResource TitleStyle}" Text="VOTE AVERAGE" />
                     <!--<Label
               Grid.Row="1"
               Text="{Binding Movie.VoteAverage}"
@@ -199,12 +189,8 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
-                    <Label
-                        Grid.Row="0"
-                        Style="{StaticResource TitleStyle}"
-                        Text="GENRES" />
+                    <Label Style="{StaticResource TitleStyle}" Text="GENRES" />
                     <controls:HorizontalList
                         Grid.Row="1"
                         Margin="12,0"

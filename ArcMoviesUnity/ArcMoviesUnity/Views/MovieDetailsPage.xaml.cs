@@ -1,4 +1,6 @@
 ﻿using ArcMoviesUnity.Droid;
+using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 
 using Xamarin.Forms;
@@ -17,7 +19,7 @@ namespace ArcMoviesUnity.Views
 
         protected override async void OnAppearing()
         {
-            //  base.OnAppearing();
+              base.OnAppearing();
             await Task.Run(async () =>
            {
                await OverView.TranslateTo(0, -Application.Current.MainPage.Height, 0, null);
@@ -70,6 +72,18 @@ namespace ArcMoviesUnity.Views
                 await Genres.TranslateTo(-Application.Current.MainPage.Width + 20, 0, 1, null);
                 await BackDropInfo.TranslateTo(-Application.Current.MainPage.Width + 20, 0, 1, null);
             });
+            Debug.WriteLine($"GEN 0: {GC.CollectionCount(0)}");
+            Debug.WriteLine($"GEN 0: {GC.CollectionCount(0)}");
+            Debug.WriteLine($"GEN 0: {GC.CollectionCount(0)}");
+
+
+            base.OnDisappearing();
+            //this.Content = null;
+            //this.BindingContext = null;
+            //GC.Collect();
+            //GC.SuppressFinalize(false);
+
         }
+        
     }
 }

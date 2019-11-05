@@ -10,28 +10,28 @@ namespace ArcMoviesUnity.ViewModels
     public sealed class MovieDetailsPageViewModel : ViewModelBase
     {
         //private ITheMovieDBAPIService _TheMovieDBAPIService;
-
         private Movie _movie;
         public Movie Movie
         {
-            get { return _movie; }
-            set { SetProperty(ref _movie, value); }
+            get => _movie;
+            set => SetProperty(ref _movie, value);
         }
+       
         public MovieDetailsPageViewModel(INavigationService navigationService, IPageDialogService pagedialogservice) : base(navigationService, pagedialogservice)
         {
             Title = "Details";
         }
         public override async void OnNavigatedTo(INavigationParameters parameters)
         {
+            isBusy = true;
             await Task.Run(() =>
             {
-                IsBusy = true;
-                var movie = parameters.GetValue<Movie>("movie");
-                Movie = movie;
+                Movie=parameters.GetValue<Movie>("movie");
                 Title = Movie.Title;
-                IsBusy = false;
             });
+            isBusy = false;
 
         }
+          
     }
 }

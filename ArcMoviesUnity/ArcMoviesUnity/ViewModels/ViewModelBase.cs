@@ -16,43 +16,18 @@ namespace ArcMoviesUnity.ViewModels
         protected INavigationService NavigationService { get; private set; }
 
         private string _title;
+        private bool _isbusy;
+        public bool isBusy
+        {
+            get { return _isbusy; }
+            set { SetProperty(ref _isbusy, value); }
+        }
         public string Title
         {
             get { return _title; }
             set { SetProperty(ref _title, value); }
         }
-        bool isBusy;
-
-        public bool IsBusy
-        {
-            get => isBusy;
-            set
-            {
-                if (SetProperty(ref isBusy, value))
-                    IsNotBusy = !isBusy;
-            }
-        }
-
-        bool isNotBusy = true;
-
-        public bool IsNotBusy
-        {
-            get => isNotBusy;
-            set
-            {
-                if (SetProperty(ref isNotBusy, value))
-                    IsBusy = !isNotBusy;
-            }
-        }
-
-        bool canLoadMore = true;
-
-        public bool CanLoadMore
-        {
-            get => canLoadMore;
-            set => SetProperty(ref canLoadMore, value);
-        }
-
+   
         public ViewModelBase(INavigationService navigationService, 
             IPageDialogService pagedialogservice)
         {
@@ -77,7 +52,7 @@ namespace ArcMoviesUnity.ViewModels
 
         public virtual void Destroy()
         {
-
+            
         }
     }
 }

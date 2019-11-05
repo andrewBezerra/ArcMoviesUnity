@@ -13,7 +13,7 @@
         CachingStrategy="RecycleElement"
         HasUnevenRows="True"
         IsPullToRefreshEnabled="True"
-        IsRefreshing="{Binding IsBusy}"
+        IsRefreshing="{Binding isBusy}"
         ItemsSource="{Binding Movies}"
         RefreshCommand="{Binding PullToRefreshCommand}"
         SeparatorVisibility="None">
