@@ -21,13 +21,25 @@ namespace ArcMoviesUnity.ViewModels
 
 
 
-        bool canLoadMore = true;
+
+        private bool canLoadMore = true;
 
         public bool CanLoadMore
         {
             get => canLoadMore;
             set => SetProperty(ref canLoadMore, value);
         }
+
+        //private DelegateCommand _fieldName;
+        //public DelegateCommand<Movie> CommandName =>
+        //    _fieldName ?? (_fieldName = new DelegateCommand<Movie>((itemselect)=>ExecuteCommandName(), (itemSelect) => !isBusy));
+
+        //void ExecuteCommandName()
+        //{
+
+        //}
+
+
 
         private DelegateCommand<Movie> _ShowMovieCommand;
         public DelegateCommand<Movie> ShowMovieCommand =>
@@ -55,6 +67,9 @@ namespace ArcMoviesUnity.ViewModels
             Title = "The Movies DB";
             _TheMovieDBAPIService = theMovieDBAPIService;
             Movies = new ObservableCollection<Movie>();
+            isBusy = true;
+            _ = LoadAsync();
+            isBusy = false;
             Xamarin.Forms.BindingBase.EnableCollectionSynchronization(Movies, null, ObservableCollectionCallback);
         }
         void ObservableCollectionCallback(IEnumerable collection, object context, Action accessMethod, bool writeAccess)
@@ -77,6 +92,7 @@ namespace ArcMoviesUnity.ViewModels
                 {
                     {"movie", movie}
                 };
+                Movies = null;
                 await NavigationService.NavigateAsync($"/MasterPage/NavigationPage/MainPage/{nameof(MovieDetailsPage)}", navigationParams);
             }
             catch (Exception ex)
@@ -90,7 +106,7 @@ namespace ArcMoviesUnity.ViewModels
         }
         private async Task ExecuteLoadMoreCommand(Movie item)
         {
-            if (Movies.Last() == item)
+            if (Movies[Movies.IndexOf(Movies.Last()) - 3] == item)
             {
                 _pageindex++;
                 await LoadAsync(_pageindex);
@@ -106,17 +122,19 @@ namespace ArcMoviesUnity.ViewModels
         private async Task LoadAsync(int page = 1)
         {
 
-            isBusy = true;
+            //isBusy = true;
 
             var movies = await _TheMovieDBAPIService.GetUpcomingMoviesAsync(page);
 
+            await Task.Run(async () =>
+            {
+                for (int c = 0; c < movies.Results.Count; c++)
+                    Movies.Add(movies.Results[c]);
+            });
 
-            for (int c = 0; c < movies.Results.Count; c++)
-                Movies.Add(movies.Results[c]);
 
 
-
-            isBusy = false;
+            //isBusy = false;
 
         }
         public override async void OnNavigatingTo(INavigationParameters parameters)

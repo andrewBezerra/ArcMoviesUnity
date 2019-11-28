@@ -10,11 +10,11 @@ using System.Text;
 namespace ArcMoviesUnity.ViewModels
 {
     [Preserve(AllMembers =true)]
-    public abstract class ViewModelBase : BindableBase, INavigationAware, IDestructible
+    public abstract class ViewModelBase : BindableBase, INavigationAware,IDestructible
     {
         protected IPageDialogService PageDialogService { get; private set; }
         protected INavigationService NavigationService { get; private set; }
-
+        
         private string _title;
         private bool _isbusy;
         public bool isBusy
@@ -50,7 +50,7 @@ namespace ArcMoviesUnity.ViewModels
 
         }
 
-        public virtual void Destroy()
+        public void Destroy()
         {
             
         }

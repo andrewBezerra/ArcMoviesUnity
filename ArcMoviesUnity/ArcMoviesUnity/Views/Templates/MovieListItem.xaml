@@ -8,13 +8,15 @@
              x:Class="ArcMoviesUnity.Views.Templates.MovieListItem">
 
     <Frame
-                        x:Name="MovieItem"
-                        Margin="2"
-                        Padding="0"
-                        HasShadow="True">
+                       
+            Margin="5"
+            Padding="0"
+            HasShadow="True">
 
 
-        <Grid Margin="8,4" VerticalOptions="StartAndExpand">
+        <Grid 
+            Margin="4,4" 
+            VerticalOptions="StartAndExpand">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="2*" />
                 <ColumnDefinition Width="8*" />
@@ -22,17 +24,17 @@
 
             <ffimageloading:CachedImage
                                 Grid.ColumnSpan="2"
-                                Aspect="Fill"
+                                Aspect="AspectFill"
                                 FadeAnimationDuration="1000"
                                 FadeAnimationEnabled="True"
-                                HorizontalOptions="Fill"
+                                HorizontalOptions="FillAndExpand"
                                 IsOpaque="True"
-                                Opacity="0.1"
+                                Opacity="0.2"
                                 Source="{Binding BackdropPath, Converter={StaticResource MovieImageConverter}}"
                                 VerticalOptions="Fill" />
-
-            <!--  "NÃO CONSEGUI FAZER FUNCIONAR AINDA"  -->
-            <ffimageloading:CachedImage Source="{Binding PosterPath, Converter={StaticResource MovieImageConverter}}" />
+            
+            <ffimageloading:CachedImage 
+                Source="{Binding PosterPath, Converter={StaticResource MovieImageConverter}}" />
 
             <StackLayout Grid.Column="1" Margin="0,10">
 
@@ -53,20 +55,7 @@
                                     TextColor="Black"
                                     VerticalOptions="Center" />
             </StackLayout>
-
-            <!--<Image
-                                Aspect="AspectFill"
-                                HorizontalOptions="Fill"
-                                IsOpaque="True"
-                                Opacity="0.1"
-                                VerticalOptions="Fill">
-                                <Image.Source>
-                                    <UriImageSource Uri="{Binding BackdropPath, Converter={StaticResource MovieImageConverter}}" />
-                                </Image.Source>
-                            </Image>-->
-
-
-
+            
         </Grid>
     </Frame>
 
