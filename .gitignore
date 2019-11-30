@@ -3,6 +3,9 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
+# CLASSES DE CONFIGURAÇÃO COM SEGREDOS QUE NÃO DEVEM IR PARA O GIT PUBLICO
+APIKEY.cs
+
 # User-specific files
 *.rsuser
 *.suo
@@ -338,3 +341,4 @@ ASALocalRun/
 
 # BeatPulse healthcheck temp database
 healthchecksdb
+
