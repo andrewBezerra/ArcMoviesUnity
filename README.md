@@ -8,11 +8,13 @@ Third-Party Libraries
 ===
 Prism.Core - Prism is a framework for building loosely coupled, maintainable, and testable XAML applications.
 
-Prism.DryIoc.Forms - Dependency Injection Container for Prism Applications.
+Prism.Unity.Forms - Dependency Injection Container for Prism Applications.
 
 NewtonSoft.Json - Flexible JSON serializer for converting between .NET objects and JSON.
 
-Xam.Plugin.Connectivity - Simple cross platform plugin to check connection status of mobile device, gather connection type, bandwidths, and more.
+Xamarin.FFImageLoading.Forms - Library to load images quickly & easily on Xamarin.iOS, Xamarin.Android, Xamarin.Forms, Xamarin.Mac / Xamarin.Tizen and Windows (UWP, WinRT).
+
+Flurl.Http - A modern, fluent, asynchronous, testable, portable, buzzword-laden URL builder and HTTP client library for .NET
 
 Screenshots - Android
 ===
