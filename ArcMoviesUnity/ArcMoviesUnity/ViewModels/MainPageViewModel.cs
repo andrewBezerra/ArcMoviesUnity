@@ -67,9 +67,9 @@ namespace ArcMoviesUnity.ViewModels
             Title = "The Movies DB";
             _TheMovieDBAPIService = theMovieDBAPIService;
             Movies = new ObservableCollection<Movie>();
-            isBusy = true;
+           
             _ = LoadAsync();
-            isBusy = false;
+          
             Xamarin.Forms.BindingBase.EnableCollectionSynchronization(Movies, null, ObservableCollectionCallback);
         }
         void ObservableCollectionCallback(IEnumerable collection, object context, Action accessMethod, bool writeAccess)
@@ -116,26 +116,24 @@ namespace ArcMoviesUnity.ViewModels
         {
             Movies.Clear();
             _pageindex = 1;
+           
             await LoadAsync();
+         
         }
 
         private async Task LoadAsync(int page = 1)
         {
-
-            //isBusy = true;
+            isBusy = true;
 
             var movies = await _TheMovieDBAPIService.GetUpcomingMoviesAsync(page);
 
-            await Task.Run(async () =>
+            await Task.Run(() =>
             {
                 for (int c = 0; c < movies.Results.Count; c++)
                     Movies.Add(movies.Results[c]);
             });
 
-
-
-            //isBusy = false;
-
+            isBusy = false;
         }
         public override async void OnNavigatingTo(INavigationParameters parameters)
         {

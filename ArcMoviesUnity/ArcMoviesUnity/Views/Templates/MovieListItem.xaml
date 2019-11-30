@@ -1,19 +1,16 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ViewCell xmlns="http://xamarin.com/schemas/2014/forms" 
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+          xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+          xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+          xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
           xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
           mc:Ignorable="d"
-             x:Class="ArcMoviesUnity.Views.Templates.MovieListItem">
+          x:Class="ArcMoviesUnity.Views.Templates.MovieListItem">
 
-    <Frame
-                       
+    <Frame            
             Margin="5"
             Padding="0"
             HasShadow="True">
-
-
         <Grid 
             Margin="4,4" 
             VerticalOptions="StartAndExpand">
@@ -32,8 +29,8 @@
                                 Opacity="0.2"
                                 Source="{Binding BackdropPath, Converter={StaticResource MovieImageConverter}}"
                                 VerticalOptions="Fill" />
-            
-            <ffimageloading:CachedImage 
+
+            <ffimageloading:CachedImage Margin="2"
                 Source="{Binding PosterPath, Converter={StaticResource MovieImageConverter}}" />
 
             <StackLayout Grid.Column="1" Margin="0,10">
@@ -55,9 +52,12 @@
                                     TextColor="Black"
                                     VerticalOptions="Center" />
             </StackLayout>
-            
+
         </Grid>
     </Frame>
-
+    <ViewCell.ContextActions>
+        <MenuItem Text="Edit" Command="{Binding ID}" CommandParameter="{Binding Title}"></MenuItem>
+        <MenuItem Text="Details"  ></MenuItem>
+    </ViewCell.ContextActions>
 
 </ViewCell>

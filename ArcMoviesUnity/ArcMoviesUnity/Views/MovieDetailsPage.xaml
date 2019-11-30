@@ -69,7 +69,7 @@
     <ContentPage.Content>
         <ScrollView Padding="20,20,20,0">
 
-            <Grid RowSpacing="2">
+            <Grid Padding="0" RowSpacing="2">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="200" />
                     <RowDefinition Height="Auto" />
@@ -146,7 +146,8 @@
                 <Grid
                     x:Name="ReleaseDate"
                     Grid.Row="2"
-                    Padding="10"
+                    Margin="0"
+                    Padding="0"
                     IsVisible="False">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
