@@ -18,6 +18,7 @@ Flurl.Http - A modern, fluent, asynchronous, testable, portable, buzzword-laden 
 
 Screenshots - Android
 ===
-![Splash](screenshots/SplashScreen.png)
-![Main](screenshots/Main.png)
-![Details](screenshots/Details1.png)
+![Splash](screenshots/Splash.png)
+![Main](screenshots/MovieList.png)
+![Details](screenshots/MovieDetail.png)
+
