@@ -7,7 +7,7 @@ namespace ArcMoviesUnity.Services
     [Preserve]
     public interface ITheMovieDBAPIService
     {
-        Task<SearchResponse<Movie>> GetUpcomingMoviesAsync(int pageNumber = 1, string language = "en");
+        Task<SearchResponse<MovieListMainPageViewModel>> GetUpcomingMoviesAsync(int pageNumber = 1, string language = "en");
         Task<Movie> FindByIdAsync(int movieId, string language = "en");
     }
 }

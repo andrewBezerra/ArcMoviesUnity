@@ -8,7 +8,8 @@ namespace ArcMoviesUnity.Services
     
         public async Task<TResult> GetAsync<TResult>(string uri)
         {
-            return await uri.GetJsonAsync<TResult>();
+           return await uri.GetJsonAsync<TResult>();
+          
         }
     }
 }

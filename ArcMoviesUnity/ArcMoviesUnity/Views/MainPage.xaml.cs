@@ -15,10 +15,13 @@ namespace ArcMoviesUnity.Views
         }
         protected override void OnDisappearing()
         {
-            base.OnDisappearing();
+            
+           
+            this.BindingContext = null;
             GC.Collect();
             GC.WaitForPendingFinalizers();
             GC.Collect();
+            base.OnDisappearing();
         }
 
 

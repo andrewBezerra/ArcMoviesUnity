@@ -7,7 +7,7 @@ namespace ArcMoviesUnity.Models
 {
     [Preserve]
     [DataContract]
-    public sealed class Movie
+    public class Movie:IDisposable
     {
         [DataMember(Name = "id")]
         public int Id { get; set; }
@@ -92,6 +92,12 @@ namespace ArcMoviesUnity.Models
             }
         }
 
-
+        public void Dispose()
+        {
+            Genres = null;
+            ProductionCountries = null;
+            SpokenLanguages = null;
+            GC.SuppressFinalize(this);
+        }
     }
 }

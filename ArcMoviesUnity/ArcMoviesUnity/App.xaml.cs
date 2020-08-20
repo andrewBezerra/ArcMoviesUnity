@@ -7,6 +7,8 @@ using Xamarin.Forms.Xaml;
 using ArcMoviesUnity.Services;
 using ArcMoviesUnity.Droid;
 using Prism.Unity;
+using System.Threading.Tasks;
+using System;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace ArcMoviesUnity
@@ -25,9 +27,12 @@ namespace ArcMoviesUnity
 
         protected override async void OnInitialized()
         {
-            InitializeComponent();
-
+            await InitializeComponentsAsync();
             await NavigationService.NavigateAsync("/MasterPage/NavigationPage/MainPage");
+        }
+        protected async Task InitializeComponentsAsync()
+        {
+             await Task.Run(()=> InitializeComponent());
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
@@ -37,8 +42,8 @@ namespace ArcMoviesUnity
             containerRegistry.RegisterForNavigation<MainPage, MainPageViewModel>();
             containerRegistry.RegisterForNavigation<MovieDetailsPage, MovieDetailsPageViewModel>();
 
-            containerRegistry.RegisterSingleton<IHttpRequest, HttpRequest>();
-            containerRegistry.RegisterSingleton<ITheMovieDBAPIService, TheMovieDBAPIService>();
+           // containerRegistry.Register(typeof(Lazy<IHttpRequest>), typeof(Lazy<FlurlHttpService>));
+           // containerRegistry.Register(typeof(Lazy<ITheMovieDBAPIService>), typeof(Lazy<TheMovieDBAPIService>));
 
         }
     }

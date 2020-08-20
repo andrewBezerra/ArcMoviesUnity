@@ -1,8 +1,6 @@
 ﻿using ArcMoviesUnity.Droid;
 using System;
-using System.Diagnostics;
 using System.Threading.Tasks;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -10,16 +8,23 @@ namespace ArcMoviesUnity.Views
 {
     [Preserve]
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class MovieDetailsPage : ContentPage
+    public partial class MovieDetailsPage : ContentPage,IDisposable
     {
         public MovieDetailsPage()
         {
             InitializeComponent();
         }
 
+        public void Dispose()
+        {
+            this.Content = null;
+            this.BindingContext = null;
+            GC.SuppressFinalize(this);
+        }
+
         protected override async void OnAppearing()
         {
-              base.OnAppearing();
+           
             await Task.Run(async () =>
            {
                await OverView.TranslateTo(0, -Application.Current.MainPage.Height, 0, null);
@@ -55,6 +60,7 @@ namespace ArcMoviesUnity.Views
                 await Genres.TranslateTo(0, 0, 500, Easing.BounceOut);
                 await BackDropInfo.TranslateTo(0, 0, 500, Easing.BounceOut);
             });
+            base.OnAppearing();
 
         }
         protected override async void OnDisappearing()
@@ -72,18 +78,13 @@ namespace ArcMoviesUnity.Views
                 await Genres.TranslateTo(-Application.Current.MainPage.Width + 20, 0, 1, null);
                 await BackDropInfo.TranslateTo(-Application.Current.MainPage.Width + 20, 0, 1, null);
             });
-            Debug.WriteLine($"GEN 0: {GC.CollectionCount(0)}");
-            Debug.WriteLine($"GEN 0: {GC.CollectionCount(0)}");
-            Debug.WriteLine($"GEN 0: {GC.CollectionCount(0)}");
 
-
+            this.Dispose();
+            
             base.OnDisappearing();
-            //this.Content = null;
-            //this.BindingContext = null;
-            //GC.Collect();
-            //GC.SuppressFinalize(false);
+
 
         }
-        
+
     }
 }

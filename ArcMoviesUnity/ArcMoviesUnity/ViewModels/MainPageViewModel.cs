@@ -7,7 +7,6 @@ using Prism.Navigation;
 using Prism.Services;
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -17,10 +16,15 @@ namespace ArcMoviesUnity.ViewModels
     [Preserve(AllMembers = true)]
     public sealed class MainPageViewModel : ViewModelBase
     {
-        public ObservableCollection<Movie> Movies { get; set; }
+        public ObservableCollection<MovieListMainPageViewModel> Movies { get; set; }
 
+        private bool _isShown = true;
 
-
+        public bool isShown
+        {
+            get => _isShown;
+            set => SetProperty(ref _isShown, value);
+        }
 
         private bool canLoadMore = true;
 
@@ -41,14 +45,14 @@ namespace ArcMoviesUnity.ViewModels
 
 
 
-        private DelegateCommand<Movie> _ShowMovieCommand;
-        public DelegateCommand<Movie> ShowMovieCommand =>
-            _ShowMovieCommand ?? (_ShowMovieCommand = new DelegateCommand<Movie>(async (itemSelect) =>
+        private DelegateCommand<MovieListMainPageViewModel> _ShowMovieCommand;
+        public DelegateCommand<MovieListMainPageViewModel> ShowMovieCommand =>
+            _ShowMovieCommand ?? (_ShowMovieCommand = new DelegateCommand<MovieListMainPageViewModel>(async (itemSelect) =>
             await ExecuteShowMovieCommand(itemSelect), (itemSelect) => !isBusy));
 
-        private DelegateCommand<Movie> _loadMoreCommand;
-        public DelegateCommand<Movie> LoadMoreCommand =>
-            _loadMoreCommand ?? (_loadMoreCommand = new DelegateCommand<Movie>(async (itemSelect) =>
+        private DelegateCommand<MovieListMainPageViewModel> _loadMoreCommand;
+        public DelegateCommand<MovieListMainPageViewModel> LoadMoreCommand =>
+            _loadMoreCommand ?? (_loadMoreCommand = new DelegateCommand<MovieListMainPageViewModel>(async (itemSelect) =>
             await ExecuteLoadMoreCommand(itemSelect), (itemSelect) => !isBusy));
 
         private DelegateCommand _pullToRefreshCommand;
@@ -56,44 +60,47 @@ namespace ArcMoviesUnity.ViewModels
             _pullToRefreshCommand ?? (_pullToRefreshCommand = new DelegateCommand(async () =>
              await ExecutePullToRefreshCommand(), () => !isBusy));
 
-        private readonly ITheMovieDBAPIService _TheMovieDBAPIService;
+        private readonly Lazy<TheMovieDBAPIService> _TheMovieDBAPIService;
 
         private int _pageindex = 1;
 
         public MainPageViewModel(INavigationService navigationService,
-            IPageDialogService pagedialogservice, ITheMovieDBAPIService theMovieDBAPIService)
+            IPageDialogService pagedialogservice)
             : base(navigationService, pagedialogservice)
         {
             Title = "The Movies DB";
-            _TheMovieDBAPIService = theMovieDBAPIService;
-            Movies = new ObservableCollection<Movie>();
-           
-            _ = LoadAsync();
-          
-            Xamarin.Forms.BindingBase.EnableCollectionSynchronization(Movies, null, ObservableCollectionCallback);
-        }
-        void ObservableCollectionCallback(IEnumerable collection, object context, Action accessMethod, bool writeAccess)
-        {
-            // `lock` ensures that only one thread access the collection at a time
-            lock (collection)
+            if (isShown)
             {
-                accessMethod?.Invoke();
+                _TheMovieDBAPIService = new Lazy<TheMovieDBAPIService>();
+                Movies = new ObservableCollection<MovieListMainPageViewModel>();
+
+                _ = LoadAsync();
             }
+           // Xamarin.Forms.BindingBase.EnableCollectionSynchronization(Movies, null, ObservableCollectionCallback);
         }
+        //void ObservableCollectionCallback(IEnumerable collection, object context, Action accessMethod, bool writeAccess)
+        //{
+        //    // `lock` ensures that only one thread access the collection at a time
+        //    lock (collection)
+        //    {
+        //        accessMethod?.Invoke();
+        //    }
+        //}
 
 
-        private async Task ExecuteShowMovieCommand(Movie movie)
+        private async Task ExecuteShowMovieCommand(MovieListMainPageViewModel movie)
         {
             try
             {
-                isBusy = true;
-                movie = await _TheMovieDBAPIService.FindByIdAsync(movie.Id);
+                //isBusy = true;
+                var m = await _TheMovieDBAPIService.Value.FindByIdAsync(movie.Id);
                 var navigationParams = new NavigationParameters
                 {
-                    {"movie", movie}
+                    {"movie", m}
                 };
-                Movies = null;
+                _isShown = false;
                 await NavigationService.NavigateAsync($"/MasterPage/NavigationPage/MainPage/{nameof(MovieDetailsPage)}", navigationParams);
+              
             }
             catch (Exception ex)
             {
@@ -104,9 +111,9 @@ namespace ArcMoviesUnity.ViewModels
                 isBusy = false;
             }
         }
-        private async Task ExecuteLoadMoreCommand(Movie item)
+        private async Task ExecuteLoadMoreCommand(MovieListMainPageViewModel item)
         {
-            if (Movies[Movies.IndexOf(Movies.Last()) - 3] == item)
+            if (item.Equals(Movies[Movies.IndexOf(Movies.Last()) - 3]))
             {
                 _pageindex++;
                 await LoadAsync(_pageindex);
@@ -114,18 +121,19 @@ namespace ArcMoviesUnity.ViewModels
         }
         private async Task ExecutePullToRefreshCommand()
         {
+           
             Movies.Clear();
             _pageindex = 1;
            
             await LoadAsync();
-         
+           
         }
 
         private async Task LoadAsync(int page = 1)
         {
             isBusy = true;
 
-            var movies = await _TheMovieDBAPIService.GetUpcomingMoviesAsync(page);
+            var movies = await _TheMovieDBAPIService.Value.GetUpcomingMoviesAsync(page);
 
             await Task.Run(() =>
             {
@@ -134,13 +142,18 @@ namespace ArcMoviesUnity.ViewModels
             });
 
             isBusy = false;
+            
         }
         public override async void OnNavigatingTo(INavigationParameters parameters)
         {
-            //base.OnNavigatingTo(parameters);
-            await LoadAsync();
+            
+            _isShown = true;
+           //await LoadAsync();
+            base.OnNavigatingTo(parameters);
         }
+       
 
+      
 
     }
 }

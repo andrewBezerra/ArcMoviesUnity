@@ -1,63 +1,61 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
-<ViewCell xmlns="http://xamarin.com/schemas/2014/forms" 
-          xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-          xmlns:d="http://xamarin.com/schemas/2014/forms/design"
-          xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-          xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
-          mc:Ignorable="d"
-          x:Class="ArcMoviesUnity.Views.Templates.MovieListItem">
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ViewCell
+    x:Class="ArcMoviesUnity.Views.Templates.MovieListItem"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
 
-    <Frame            
-            Margin="5"
-            Padding="0"
-            HasShadow="True">
-        <Grid 
-            Margin="4,4" 
-            VerticalOptions="StartAndExpand">
+    <Frame
+        Margin="5"
+        Padding="0"
+        HasShadow="True">
+        <Grid Margin="4,4" VerticalOptions="StartAndExpand">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="2*" />
                 <ColumnDefinition Width="8*" />
             </Grid.ColumnDefinitions>
 
             <ffimageloading:CachedImage
-                                Grid.ColumnSpan="2"
-                                Aspect="AspectFill"
-                                FadeAnimationDuration="1000"
-                                FadeAnimationEnabled="True"
-                                HorizontalOptions="FillAndExpand"
-                                IsOpaque="True"
-                                Opacity="0.2"
-                                Source="{Binding BackdropPath, Converter={StaticResource MovieImageConverter}}"
-                                VerticalOptions="Fill" />
+                Grid.ColumnSpan="2"
+                Aspect="AspectFill"
+                FadeAnimationDuration="1000"
+                FadeAnimationEnabled="True"
+                HorizontalOptions="FillAndExpand"
+                IsOpaque="True"
+                Opacity="0.2"
+                Source="{Binding BackdropPath, Converter={StaticResource MovieImageConverter}}"
+                VerticalOptions="Fill" />
 
-            <ffimageloading:CachedImage Margin="2"
-                Source="{Binding PosterPath, Converter={StaticResource MovieImageConverter}}" />
+            <ffimageloading:CachedImage Margin="2" Source="{Binding PosterPath, Converter={StaticResource MovieImageConverter}}" />
 
             <StackLayout Grid.Column="1" Margin="0,10">
 
                 <Label
-                                    FontAttributes="Bold"
-                                    FontSize="18"
-                                    LineBreakMode="TailTruncation"
-                                    Text="{Binding Title}"
-                                    TextColor="Black" />
+                    FontAttributes="Bold"
+                    FontSize="18"
+                    LineBreakMode="TailTruncation"
+                    Text="{Binding Title}"
+                    TextColor="Black" />
                 <Label
-                                    FontSize="12"
-                                    Text="{Binding ReleaseDate, StringFormat='Release date: {0:MMMM d}'}"
-                                    TextColor="Black"
-                                    VerticalOptions="Center" />
+                    FontSize="12"
+                    Text="{Binding ReleaseDate, StringFormat='Release date: {0:MMMM d}'}"
+                    TextColor="Black"
+                    VerticalOptions="Center" />
                 <Label
-                                    FontSize="12"
-                                    Text="{Binding Popularity, StringFormat='Popularity: {0:F0}'}"
-                                    TextColor="Black"
-                                    VerticalOptions="Center" />
+                    FontSize="12"
+                    Text="{Binding Popularity, StringFormat='Popularity: {0:F0}'}"
+                    TextColor="Black"
+                    VerticalOptions="Center" />
             </StackLayout>
 
         </Grid>
     </Frame>
-    <ViewCell.ContextActions>
+    <!--<ViewCell.ContextActions>
         <MenuItem Text="Edit" Command="{Binding ID}" CommandParameter="{Binding Title}"></MenuItem>
         <MenuItem Text="Details"  ></MenuItem>
-    </ViewCell.ContextActions>
+    </ViewCell.ContextActions>-->
 
 </ViewCell>

@@ -5,7 +5,7 @@ namespace ArcMoviesUnity.Models
 {
     [Preserve]
     [DataContract]
-    public sealed class Language
+    public struct Language
     {
         [DataMember(Name = "iso_639_1")]
         public string Iso639Code { get; set; }

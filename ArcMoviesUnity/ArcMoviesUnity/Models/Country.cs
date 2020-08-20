@@ -5,7 +5,7 @@ namespace ArcMoviesUnity.Models
 {
     [Preserve]
     [DataContract]
-    public sealed class Country
+    public struct Country
     {
         [DataMember(Name = "iso_3166_1")]
         public string Iso3166Code { get; set; }

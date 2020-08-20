@@ -9,12 +9,12 @@ using System.Text;
 
 namespace ArcMoviesUnity.ViewModels
 {
-    [Preserve(AllMembers =true)]
-    public abstract class ViewModelBase : BindableBase, INavigationAware,IDestructible
+    [Preserve(AllMembers = true)]
+    public abstract class ViewModelBase : BindableBase, INavigationAware
     {
         protected IPageDialogService PageDialogService { get; private set; }
         protected INavigationService NavigationService { get; private set; }
-        
+
         private string _title;
         private bool _isbusy;
         public bool isBusy
@@ -27,8 +27,8 @@ namespace ArcMoviesUnity.ViewModels
             get { return _title; }
             set { SetProperty(ref _title, value); }
         }
-   
-        public ViewModelBase(INavigationService navigationService, 
+
+        public ViewModelBase(INavigationService navigationService,
             IPageDialogService pagedialogservice)
         {
             NavigationService = navigationService;
@@ -50,9 +50,22 @@ namespace ArcMoviesUnity.ViewModels
 
         }
 
-        public void Destroy()
-        {
-            
-        }
+       
+       
+
+       
+
+
+        
+     
+
+
+       
+     
+
+       
+
+      
     }
+
 }

@@ -1,6 +1,7 @@
 ﻿using ArcMoviesUnity.Droid;
 using ArcMoviesUnity.Helpers;
 using ArcMoviesUnity.Models;
+using System;
 using System.Threading.Tasks;
 
 namespace ArcMoviesUnity.Services
@@ -8,14 +9,14 @@ namespace ArcMoviesUnity.Services
     [Preserve]
     public sealed class TheMovieDBAPIService : ITheMovieDBAPIService
     {
-        private readonly IHttpRequest _request;
+        private readonly Lazy<FlurlHttpService> _request;
 
-        public TheMovieDBAPIService(IHttpRequest request)
+        public TheMovieDBAPIService()
         {
-            _request = request;
+            _request = new Lazy<FlurlHttpService>();
         }
 
-        public async Task<SearchResponse<Movie>> GetUpcomingMoviesAsync(int pageNumber = 1, string language = "en")
+        public async Task<SearchResponse<MovieListMainPageViewModel>> GetUpcomingMoviesAsync(int pageNumber = 1, string language = "en")
         {
 
             var url = $"{AppSettings.ApiBaseUrl}movie/" +
@@ -23,7 +24,7 @@ namespace ArcMoviesUnity.Services
                     $"&language={language}" +
                     $"&page={pageNumber}";
 
-           return await _request.GetAsync<SearchResponse<Movie>>(url).ConfigureAwait(false);
+           return await _request.Value.GetAsync<SearchResponse<MovieListMainPageViewModel>>(url).ConfigureAwait(false);
 
            
 
@@ -33,7 +34,7 @@ namespace ArcMoviesUnity.Services
         {
             string url = $"{AppSettings.ApiBaseUrl}movie/{movieId}?api_key={AppSettings.ApiKey}&language={language}";
 
-           return await _request.GetAsync<Movie>(url);
+           return await _request.Value.GetAsync<Movie>(url);
 
            
         }

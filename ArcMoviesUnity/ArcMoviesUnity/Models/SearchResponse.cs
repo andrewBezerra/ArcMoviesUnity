@@ -1,4 +1,5 @@
 ﻿using ArcMoviesUnity.Droid;
+using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 
@@ -6,7 +7,7 @@ namespace ArcMoviesUnity.Models
 {
     [Preserve]
     [DataContract]
-    public sealed class SearchResponse<T>
+    public class SearchResponse<T>:IDisposable
     {
         [DataMember(Name = "results")]
         public IReadOnlyList<T> Results { get; private set; }
@@ -19,5 +20,12 @@ namespace ArcMoviesUnity.Models
 
         [DataMember(Name = "total_results")]
         public int TotalResults { get; private set; }
+
+        public void Dispose()
+        {
+            Results = null;
+            GC.SuppressFinalize(this);
+            
+        }
     }
 }

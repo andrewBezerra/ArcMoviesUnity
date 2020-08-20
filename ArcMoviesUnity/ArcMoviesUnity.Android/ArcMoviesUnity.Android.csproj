@@ -43,6 +43,11 @@
     <AndroidCreatePackagePerAbi>false</AndroidCreatePackagePerAbi>
     <AndroidEnableMultiDex>false</AndroidEnableMultiDex>
     <MandroidI18n />
+    <AndroidLinkTool>r8</AndroidLinkTool>
+    <AotAssemblies>false</AotAssemblies>
+    <EnableLLVM>false</EnableLLVM>
+    <AndroidEnableProfiledAot>false</AndroidEnableProfiledAot>
+    <AndroidEnableSGenConcurrent>true</AndroidEnableSGenConcurrent>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <AndroidPackageFormat>apk</AndroidPackageFormat>
@@ -59,12 +64,12 @@
     <AndroidSupportedAbis>arm64-v8a</AndroidSupportedAbis>
     <AndroidLinkMode>Full</AndroidLinkMode>
     <AotAssemblies>true</AotAssemblies>
-    <EnableLLVM>false</EnableLLVM>
+    <EnableLLVM>true</EnableLLVM>
     <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
-    <AndroidUseAapt2>false</AndroidUseAapt2>
-    <AndroidCreatePackagePerAbi>true</AndroidCreatePackagePerAbi>
+    <AndroidUseAapt2>true</AndroidUseAapt2>
+    <AndroidCreatePackagePerAbi>false</AndroidCreatePackagePerAbi>
     <AndroidEnableProfiledAot>true</AndroidEnableProfiledAot>
-    <BundleAssemblies>false</BundleAssemblies>
+    <BundleAssemblies>true</BundleAssemblies>
     <AndroidEnableSGenConcurrent>true</AndroidEnableSGenConcurrent>
     <AndroidAotAdditionalArguments>no-write-symbols,nodebug</AndroidAotAdditionalArguments>
     <MandroidI18n />
@@ -80,8 +85,8 @@
     <PackageReference Include="Xamarin.FFImageLoading.Transformations">
       <Version>2.4.11.982</Version>
     </PackageReference>
-    <PackageReference Include="Xamarin.Forms" Version="4.3.0.947036" />
-    <PackageReference Include="Prism.Unity.Forms" Version="7.2.0.1367" />
+    <PackageReference Include="Xamarin.Forms" Version="4.8.0.1269" />
+    <PackageReference Include="Prism.Unity.Forms" Version="7.2.0.1422" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainActivity.cs" />
@@ -92,9 +97,6 @@
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-xxhdpi\ic_launcher.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\AndroidManifest.xml" />
@@ -144,6 +146,9 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\mipmap-xxxhdpi\splash.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\mipmap-xxhdpi\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

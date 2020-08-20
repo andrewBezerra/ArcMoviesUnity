@@ -5,7 +5,7 @@ namespace ArcMoviesUnity.Models
 {
     [Preserve]
     [DataContract]
-    public sealed class Genre
+    public struct Genre
     {
         [DataMember(Name = "id")]
         public int Id { get; private set; }
