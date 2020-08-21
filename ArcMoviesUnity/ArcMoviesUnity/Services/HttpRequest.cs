@@ -13,11 +13,12 @@ namespace ArcMoviesUnity.Services
     [Preserve]
     public sealed class HttpRequest : IHttpRequest
     {
-        private static HttpClient httpClient = new HttpClient();
+        private readonly HttpClient _httpClient;
         private readonly JsonSerializerSettings _serializerSettings;
 
-        public HttpRequest()
+        public HttpRequest(HttpClient httpClient)
         {
+            _httpClient = httpClient;
             _serializerSettings = new JsonSerializerSettings
             {
                 ContractResolver = new CamelCasePropertyNamesContractResolver(),
@@ -29,10 +30,10 @@ namespace ArcMoviesUnity.Services
         }
         public async Task<TResult> GetAsync<TResult>(string uri)
         {
-            httpClient.DefaultRequestHeaders.Clear();
-            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            _httpClient.DefaultRequestHeaders.Clear();
+            _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-            HttpResponseMessage response = await httpClient.GetAsync(uri).ConfigureAwait(false);         
+            HttpResponseMessage response = await _httpClient.GetAsync(uri).ConfigureAwait(false);         
 
             await HandleResponse(response);
 
