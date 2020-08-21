@@ -9,11 +9,11 @@ namespace ArcMoviesUnity.Services
     [Preserve]
     public sealed class TheMovieDBAPIService : ITheMovieDBAPIService
     {
-        private readonly Lazy<FlurlHttpService> _request;
+        private readonly Lazy<IHttpRequest> _request;
 
-        public TheMovieDBAPIService()
+        public TheMovieDBAPIService(Lazy<IHttpRequest> request)
         {
-            _request = new Lazy<FlurlHttpService>();
+            _request = request;
         }
 
         public async Task<SearchResponse<MovieListMainPageViewModel>> GetUpcomingMoviesAsync(int pageNumber = 1, string language = "en")

@@ -60,18 +60,18 @@ namespace ArcMoviesUnity.ViewModels
             _pullToRefreshCommand ?? (_pullToRefreshCommand = new DelegateCommand(async () =>
              await ExecutePullToRefreshCommand(), () => !isBusy));
 
-        private readonly Lazy<TheMovieDBAPIService> _TheMovieDBAPIService;
+        private readonly Lazy<ITheMovieDBAPIService> _TheMovieDBAPIService;
 
         private int _pageindex = 1;
 
         public MainPageViewModel(INavigationService navigationService,
-            IPageDialogService pagedialogservice)
+            IPageDialogService pagedialogservice, Lazy<ITheMovieDBAPIService> TheMovieDBAPIService)
             : base(navigationService, pagedialogservice)
         {
             Title = "The Movies DB";
             if (isShown)
             {
-                _TheMovieDBAPIService = new Lazy<TheMovieDBAPIService>();
+                _TheMovieDBAPIService = TheMovieDBAPIService;
                 Movies = new ObservableCollection<MovieListMainPageViewModel>();
 
                 _ = LoadAsync();

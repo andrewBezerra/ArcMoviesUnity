@@ -42,8 +42,8 @@ namespace ArcMoviesUnity
             containerRegistry.RegisterForNavigation<MainPage, MainPageViewModel>();
             containerRegistry.RegisterForNavigation<MovieDetailsPage, MovieDetailsPageViewModel>();
 
-           // containerRegistry.Register(typeof(Lazy<IHttpRequest>), typeof(Lazy<FlurlHttpService>));
-           // containerRegistry.Register(typeof(Lazy<ITheMovieDBAPIService>), typeof(Lazy<TheMovieDBAPIService>));
+            containerRegistry.Register<IHttpRequest, FlurlHttpService>();
+            containerRegistry.Register<ITheMovieDBAPIService, TheMovieDBAPIService>();
 
         }
     }
